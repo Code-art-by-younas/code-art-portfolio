@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>All Projects | Muhammad Younas</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,100..900&family=Space+Grotesk:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* Same CSS as before – unchanged except for minor performance tweaks (already good) */
+        :root {
+            --bg-primary: #ffffff;
+            --bg-secondary: #f8fafc;
+            --text-primary: #0f172a;
+            --text-secondary: #475569;
+            --border: #e2e8f0;
+            --accent: #4f46e5;
+            --accent-light: #eef2ff;
+            --card-bg: #ffffff;
+        }
+        [data-theme="dark"] {
+            --bg-primary: #0f172a;
+            --bg-secondary: #1e293b;
+            --text-primary: #f1f5f9;
+            --text-secondary: #cbd5e1;
+            --border: #334155;
+            --accent: #818cf8;
+            --accent-light: #1e1b4b;
+            --card-bg: #1e293b;
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            padding: 2rem 1rem;
+            transition: background 0.2s, color 0.2s;
+        }
+        .container { max-width:1300px; margin:0 auto; }
+        .top-bar { margin-bottom:2rem; }
+        .back-link {
+            display:inline-flex; align-items:center; gap:8px;
+            background:var(--bg-secondary); padding:0.5rem 1rem; border-radius:40px;
+            text-decoration:none; color:var(--accent); font-weight:500; border:1px solid var(--border);
+            transition:0.2s;
+        }
+        .back-link:hover { background:var(--accent-light); transform:translateX(-4px); }
+        .header { text-align:center; margin-bottom:2.5rem; }
+        .header h1 { font-family:'Space Grotesk',sans-serif; font-size:2.5rem; background:linear-gradient(135deg,var(--accent),#a855f7); -webkit-background-clip:text; background-clip:text; color:transparent; }
+        .filter-bar { display:flex; flex-wrap:wrap; justify-content:center; gap:0.8rem; margin-bottom:2.5rem; }
+        .filter-btn {
+            background:var(--bg-secondary); border:1px solid var(--border); padding:0.6rem 1.4rem;
+            border-radius:60px; font-weight:600; font-size:0.85rem; cursor:pointer;
+            transition:0.2s; color:var(--text-secondary);
+        }
+        .filter-btn.active { background:var(--accent); color:white; border-color:var(--accent); }
+        .projects-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(320px,1fr)); gap:2rem; }
+        .project-card {
+            background:var(--card-bg); border:1px solid var(--border); border-radius:1.5rem;
+            overflow:hidden; transition:transform 0.2s, box-shadow 0.2s;
+        }
+        .project-card:hover { transform:translateY(-4px); box-shadow:0 10px 25px rgba(0,0,0,0.1); border-color:var(--accent); }
+        .project-img {
+            height:160px; background:var(--bg-secondary); display:flex;
+            align-items:center; justify-content:center; font-size:2.8rem; color:var(--accent);
+            overflow:hidden;
+        }
+        .project-img img { width:100%; height:100%; object-fit:cover; display:block; }
+        .project-body { padding:1.4rem; }
+        .project-category {
+            display:inline-block; font-size:0.7rem; font-weight:700; padding:0.2rem 0.7rem;
+            border-radius:30px; background:var(--accent-light); color:var(--accent); margin-bottom:0.8rem;
+        }
+        .project-body h3 { font-family:'Space Grotesk',sans-serif; font-size:1.2rem; margin-bottom:0.5rem; }
+        .project-desc { color:var(--text-secondary); font-size:0.85rem; line-height:1.5; margin:0.5rem 0; }
+        .project-tags { display:flex; flex-wrap:wrap; gap:6px; margin:0.8rem 0; }
+        .project-tags span { background:var(--bg-secondary); padding:4px 10px; border-radius:50px; font-size:0.7rem; font-weight:500; color:var(--text-secondary); border:1px solid var(--border); }
+        .project-actions { display:flex; gap:10px; margin-top:1rem; flex-wrap:wrap; }
+        .btn {
+            display:inline-flex; align-items:center; gap:6px; padding:6px 12px;
+            border-radius:40px; font-size:0.75rem; font-weight:600; text-decoration:none;
+            transition:0.2s; cursor:pointer;
+        }
+        .btn-primary { background:var(--accent); color:white; border:none; }
+        .btn-primary:hover { background:#6366f1; transform:translateY(-1px); }
+        .btn-outline { border:1px solid var(--accent); color:var(--accent); background:transparent; }
+        .btn-outline:hover { background:var(--accent-light); transform:translateY(-1px); }
+        .theme-toggle-btn {
+            position:fixed; bottom:24px; right:24px; background:var(--bg-secondary);
+            border:1px solid var(--border); padding:0.6rem 1rem; border-radius:60px;
+            cursor:pointer; font-weight:500; z-index:100; transition:0.2s;
+        }
+        .theme-toggle-btn:hover { background:var(--accent-light); }
+        @media (max-width:640px) { .projects-grid { grid-template-columns:1fr; } .header h1 { font-size:1.8rem; } }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top-bar">
+        <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to Portfolio</a>
+    </div>
+    <div class="header">
+        <h1>📌 All Projects</h1>
+        <p>Frontend · Backend · Full Stack — filter to explore</p>
+    </div>
+    <div class="filter-bar">
+        <button class="filter-btn active" data-filter="all">All</button>
+        <button class="filter-btn" data-filter="frontend">Frontend</button>
+        <button class="filter-btn" data-filter="backend">Backend</button>
+        <button class="filter-btn" data-filter="fullstack">Full Stack</button>
+    </div>
+    <div class="projects-grid" id="projectsGrid"></div>
+</div>
+<button class="theme-toggle-btn" id="themeToggleBtn">🌙 Dark Mode</button>
+
+<script>
+    // Projects database – added alt-friendly, but images will have alt via JS (can improve)
+    const projectsData = [
+        { title: "💰 Personal Finance Manager", category: "fullstack", desc: "Desktop app to track income, expenses, savings with interactive charts and Oracle DB. User authentication and monthly summaries.", tags: ["Python", "Tkinter", "Oracle DB", "Matplotlib"], live: "#", repo: "https://github.com/Code-art-by-younas/python-finance-management-system", imgAlt: "Finance Manager screenshot" },
+        { title: "⛅ WeatherDash", category: "fullstack", desc: "Flask weather dashboard using OpenWeather API. Server-side caching (10 min) reduces API calls by 90%. 5-day forecast.", tags: ["Flask", "Python", "REST API", "Caching"], live: "#", repo: "https://github.com/Code-art-by-younas/WeatherDash", imgAlt: "WeatherDash Flask app preview" },
+        { title: "🔍 GitHub Profile Explorer", category: "frontend", desc: "Search any GitHub username and view profile, repositories, followers, following. Built with GitHub REST API, dark/light mode.", tags: ["HTML/CSS", "JavaScript", "GitHub API", "Async/Await"], live: "https://code-art-by-younas.github.io/GitHub-Profile-Explorer", repo: "https://github.com/Code-art-by-younas/GitHub-Profile-Explorer", imgAlt: "GitHub Profile Explorer search result" },
+        { title: "📝 Task Manager (Frontend)", category: "frontend", desc: "Minimalist to-do list with local storage, add/edit/delete tasks, filter by status. Pure vanilla JS.", tags: ["HTML", "CSS", "JavaScript", "localStorage"], live: "#", repo: "#", imgAlt: "Task manager app interface" },
+        { title: "🔐 JWT Auth Microservice", category: "backend", desc: "REST API with JWT authentication, role-based access, and MongoDB. Ideal for securing applications.", tags: ["Node.js", "Express", "JWT", "MongoDB"], live: "#", repo: "#", imgAlt: "Authentication microservice diagram" },
+        { title: "📊 Analytics Dashboard", category: "fullstack", desc: "Flask + Chart.js dashboard that reads CSV data, displays interactive charts, and supports export.", tags: ["Flask", "Chart.js", "Pandas", "CSV"], live: "#", repo: "#", imgAlt: "Analytics dashboard charts" },
+        { title: "🎨 Colour Palette Generator", category: "frontend", desc: "Generate random colour palettes, copy hex codes, save favourite palettes. Responsive design.", tags: ["JavaScript", "CSS Grid", "Clipboard API"], live: "#", repo: "#", imgAlt: "Color palette generator" },
+        { title: "📧 Email Scheduler (Python)", category: "backend", desc: "Automated email scheduler using SMTP and cron jobs. Supports templates and logging.", tags: ["Python", "SMTP", "APScheduler"], live: "#", repo: "#", imgAlt: "Email scheduler concept" }
+    ];
+
+    const grid = document.getElementById('projectsGrid');
+    let activeFilter = 'all';
+
+    function renderProjects() {
+        const filtered = projectsData.filter(p => activeFilter === 'all' || p.category === activeFilter);
+        if(filtered.length === 0) {
+            grid.innerHTML = '<div style="text-align:center; padding:3rem; grid-column:1/-1;">✨ No projects in this category. Check back soon!</div>';
+            return;
+        }
+        const cards = filtered.map(p => `
+            <div class="project-card">
+                <div class="project-img">
+                    <i class="fa-solid fa-code"></i>
+                    <!-- For simplicity we keep icon, but you could add <img> if you have project images -->
+                </div>
+                <div class="project-body">
+                    <span class="project-category">${p.category === 'frontend' ? '🎨 Frontend' : p.category === 'backend' ? '⚙️ Backend' : '🚀 Full Stack'}</span>
+                    <h3>${p.title}</h3>
+                    <p class="project-desc">${p.desc}</p>
+                    <div class="project-tags">
+                        ${p.tags.map(tag => `<span>${tag}</span>`).join('')}
+                    </div>
+                    <div class="project-actions">
+                        <a href="${p.live}" class="btn btn-primary" target="_blank"><i class="fa-solid fa-arrow-up-right-from-mobile"></i> Live Demo</a>
+                        <a href="${p.repo}" class="btn btn-outline" target="_blank"><i class="fa-brands fa-github"></i> Code</a>
+                    </div>
+                </div>
+            </div>
+        `).join('');
+        grid.innerHTML = cards;
+    }
+
+    // Filter buttons
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+            activeFilter = btn.getAttribute('data-filter');
+            renderProjects();
+        });
+    });
+
+    // Theme toggle (consistent with index.html)
+    const htmlEl = document.documentElement;
+    const themeBtn = document.getElementById('themeToggleBtn');
+    function setTheme(theme) {
+        htmlEl.setAttribute('data-theme', theme);
+        localStorage.setItem('projects-theme', theme);
+        themeBtn.innerHTML = theme === 'dark' ? '☀️ Light Mode' : '🌙 Dark Mode';
+    }
+    const savedTheme = localStorage.getItem('projects-theme') || 'light';
+    setTheme(savedTheme);
+    themeBtn.addEventListener('click', () => {
+        const current = htmlEl.getAttribute('data-theme');
+        setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+
+    // Initial render
+    renderProjects();
+</script>
+</body>
+</html>
